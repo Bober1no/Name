@@ -1,0 +1,1633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Interwar Years · 1919–1945</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Crimson+Pro:ital,wght@0,200;0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0c0a07;
+  --bg2: #111008;
+  --bg-card: #13110b;
+  --parchment: #e8dcc8;
+  --gold: #c9a84c;
+  --gold-dim: #7a6830;
+  --gold-bright: #e8c44a;
+  --cause: #d44030;
+  --cause-soft: #c0392b;
+  --cause-glow: rgba(212,64,48,0.4);
+  --effect: #3498db;
+  --effect-soft: #2874a6;
+  --effect-glow: rgba(52,152,219,0.4);
+  --text: #d4caba;
+  --text-dim: #8a7e6e;
+  --text-bright: #f0e8d8;
+  --spine: #3a3225;
+  --card-border: rgba(201,168,76,0.1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Crimson Pro', Georgia, serif;
+  overflow-x: hidden;
+  cursor: default;
+}
+
+::selection { background: rgba(201,168,76,0.3); color: var(--parchment); }
+
+/* ══ PARTICLES CANVAS ══ */
+#particles {
+  position: fixed; inset: 0;
+  z-index: 0; pointer-events: none;
+}
+
+/* ══ GRAIN ══ */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9998; opacity: 0.6;
+}
+
+/* ══ PROGRESS BAR ══ */
+.progress-bar {
+  position: fixed; top: 0; left: 0;
+  height: 3px; width: 0%;
+  background: linear-gradient(90deg, var(--cause), var(--gold-bright), var(--effect));
+  z-index: 9999;
+  box-shadow: 0 0 12px rgba(201,168,76,0.4);
+  transition: width 0.08s linear;
+}
+
+/* ══ SIDE NAV DOTS ══ */
+.side-nav {
+  position: fixed; right: 20px; top: 50%;
+  transform: translateY(-50%);
+  z-index: 500;
+  display: flex; flex-direction: column;
+  gap: 14px; align-items: center;
+  opacity: 0; transition: opacity 0.5s;
+}
+.side-nav.show { opacity: 1; }
+.side-nav a {
+  display: block; width: 10px; height: 10px;
+  border-radius: 50%;
+  background: rgba(201,168,76,0.2);
+  border: 1.5px solid var(--gold-dim);
+  transition: all 0.3s; cursor: pointer;
+  text-decoration: none;
+  position: relative;
+}
+.side-nav a:hover {
+  background: var(--gold);
+  transform: scale(1.4);
+  box-shadow: 0 0 10px rgba(201,168,76,0.5);
+}
+.side-nav a.active {
+  background: var(--gold);
+  box-shadow: 0 0 10px rgba(201,168,76,0.5);
+  transform: scale(1.3);
+}
+.side-nav a.cause-nav.active { background: var(--cause); border-color: var(--cause); box-shadow: 0 0 10px var(--cause-glow); }
+.side-nav a.effect-nav.active { background: var(--effect); border-color: var(--effect); box-shadow: 0 0 10px var(--effect-glow); }
+
+/* Tooltip */
+.side-nav a::before {
+  content: attr(data-tooltip);
+  position: absolute; right: 22px; top: 50%;
+  transform: translateY(-50%);
+  background: rgba(20,18,12,0.95);
+  border: 1px solid var(--card-border);
+  color: var(--parchment);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.05em;
+  padding: 5px 10px;
+  border-radius: 3px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s, transform 0.2s;
+  transform: translateY(-50%) translateX(5px);
+}
+.side-nav a:hover::before {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+/* ══════════════════════ HERO ══════════════════════ */
+.hero {
+  position: relative;
+  height: 100vh; min-height: 650px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center; overflow: hidden;
+  z-index: 1;
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 90% 70% at 50% 45%, rgba(201,168,76,0.06), transparent),
+    radial-gradient(ellipse 40% 60% at 15% 85%, rgba(212,64,48,0.04), transparent),
+    radial-gradient(ellipse 40% 60% at 85% 85%, rgba(52,152,219,0.04), transparent);
+}
+.hero::after {
+  content: ''; position: absolute;
+  bottom: 0; left: 0; right: 0; height: 300px;
+  background: linear-gradient(to bottom, transparent, var(--bg));
+  z-index: 2;
+}
+
+/* Animated corner brackets */
+.corner { position: absolute; width: 40px; height: 40px; z-index: 3; opacity: 0; }
+.corner--tl { top: 40px; left: 40px; border-top: 1px solid var(--gold-dim); border-left: 1px solid var(--gold-dim); animation: cornerFade 1.5s 0.5s ease forwards; }
+.corner--tr { top: 40px; right: 40px; border-top: 1px solid var(--gold-dim); border-right: 1px solid var(--gold-dim); animation: cornerFade 1.5s 0.7s ease forwards; }
+.corner--bl { bottom: 40px; left: 40px; border-bottom: 1px solid var(--gold-dim); border-left: 1px solid var(--gold-dim); animation: cornerFade 1.5s 0.9s ease forwards; }
+.corner--br { bottom: 40px; right: 40px; border-bottom: 1px solid var(--gold-dim); border-right: 1px solid var(--gold-dim); animation: cornerFade 1.5s 1.1s ease forwards; }
+@keyframes cornerFade { to { opacity: 0.4; } }
+
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem; letter-spacing: 0.7em;
+  text-transform: uppercase; color: var(--gold-dim);
+  opacity: 0; animation: fadeUp 1.2s 0.4s ease forwards;
+  z-index: 3;
+}
+.hero h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2.4rem, 7vw, 5.5rem);
+  font-weight: 900; line-height: 1.05;
+  color: var(--parchment);
+  margin: 24px 0 8px; z-index: 3;
+  opacity: 0; animation: fadeUp 1.4s 0.7s ease forwards;
+}
+.hero h1 .accent {
+  display: block;
+  background: linear-gradient(135deg, var(--gold), #f0d878, var(--gold));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: clamp(2rem, 5.8vw, 4.4rem);
+  margin-top: 6px;
+}
+.hero-sub {
+  font-size: 1.1rem; font-weight: 200;
+  font-style: italic; color: var(--text-dim);
+  max-width: 540px; line-height: 1.8;
+  padding: 0 24px; z-index: 3;
+  opacity: 0; animation: fadeUp 1.4s 1.1s ease forwards;
+}
+.hero-cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin-top: 40px; z-index: 3;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem; letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid var(--gold-dim);
+  padding: 12px 28px;
+  border-radius: 2px;
+  cursor: pointer;
+  background: transparent;
+  transition: all 0.3s;
+  opacity: 0; animation: fadeUp 1s 1.5s ease forwards;
+  text-decoration: none;
+}
+.hero-cta:hover {
+  background: rgba(201,168,76,0.1);
+  border-color: var(--gold);
+  box-shadow: 0 0 20px rgba(201,168,76,0.15);
+  transform: translateY(-2px);
+}
+.hero-cta .arrow { transition: transform 0.3s; }
+.hero-cta:hover .arrow { transform: translateY(3px); }
+
+.scroll-line {
+  position: absolute; bottom: 0; left: 50%;
+  width: 1px; height: 80px;
+  background: linear-gradient(to bottom, var(--gold-dim), transparent);
+  z-index: 3;
+  opacity: 0; animation: fadeUp 1s 2s ease forwards;
+}
+
+@keyframes fadeUp { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
+
+/* ══════════════════════ CONTROLS BAR ══════════════════════ */
+.controls {
+  position: sticky; top: 0; z-index: 500;
+  display: flex; align-items: center; justify-content: center;
+  gap: 12px; padding: 11px 20px;
+  background: rgba(12,10,7,0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(201,168,76,0.1);
+  flex-wrap: wrap;
+}
+.filter-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem; letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 2px;
+  border: 1px solid rgba(201,168,76,0.15);
+  background: transparent;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.filter-btn:hover { border-color: var(--gold-dim); color: var(--parchment); }
+.filter-btn.active {
+  background: rgba(201,168,76,0.12);
+  border-color: var(--gold);
+  color: var(--gold);
+}
+.filter-btn.cause-btn.active { border-color: var(--cause); color: var(--cause); background: rgba(212,64,48,0.1); }
+.filter-btn.effect-btn.active { border-color: var(--effect); color: var(--effect); background: rgba(52,152,219,0.1); }
+
+.controls .sep {
+  width: 1px; height: 18px;
+  background: rgba(201,168,76,0.15);
+  margin: 0 6px;
+}
+
+.legend-item {
+  display: flex; align-items: center; gap: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.52rem; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--text-dim);
+}
+.legend-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+}
+.legend-dot.cause-d { background: var(--cause); box-shadow: 0 0 6px var(--cause-glow); }
+.legend-dot.effect-d { background: var(--effect); box-shadow: 0 0 6px var(--effect-glow); }
+
+/* ══════════════════════ TIMELINE ══════════════════════ */
+.timeline {
+  position: relative;
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 90px 24px 140px;
+  z-index: 1;
+}
+
+/* Animated spine */
+.timeline::before {
+  content: '';
+  position: absolute; left: 50%; top: 0; bottom: 0;
+  width: 2px; transform: translateX(-50%);
+  background: repeating-linear-gradient(to bottom, var(--spine) 0 6px, transparent 6px 12px);
+}
+
+/* Glowing pulse traveling down spine */
+.spine-pulse {
+  position: absolute; left: 50%; top: 0;
+  width: 2px; height: 80px;
+  transform: translateX(-50%);
+  background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+  opacity: 0.4;
+  animation: spineTravelDown 6s linear infinite;
+  z-index: 2;
+}
+@keyframes spineTravelDown {
+  0% { top: -80px; }
+  100% { top: 100%; }
+}
+
+/* ══ YEAR MARKER ══ */
+.year-marker {
+  position: relative;
+  display: flex; justify-content: center;
+  margin-bottom: 50px;
+  opacity: 0; transform: scale(0.8);
+  transition: opacity 0.6s, transform 0.6s cubic-bezier(0.34,1.56,0.64,1);
+}
+.year-marker.visible { opacity: 1; transform: scale(1); }
+.year-marker .badge {
+  background: var(--bg);
+  border: 1.5px solid var(--gold-dim);
+  padding: 8px 28px;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1rem; font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.08em;
+  z-index: 5;
+  position: relative;
+}
+
+/* ══ EVENT ROW ══ */
+.event {
+  position: relative;
+  display: flex; align-items: flex-start;
+  margin-bottom: 90px;
+  opacity: 0;
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.22,1,0.36,1);
+}
+.event.hidden-filter {
+  display: none !important;
+}
+.event:nth-child(odd):not(.interlude):not(.year-marker) {
+  flex-direction: row;
+  transform: translateX(-40px);
+}
+.event:nth-child(even):not(.interlude):not(.year-marker) {
+  flex-direction: row-reverse;
+  transform: translateX(40px);
+}
+.event.visible {
+  opacity: 1; transform: translateX(0) !important;
+}
+
+/* Node */
+.event-node {
+  position: absolute; left: 50%; top: 28px;
+  width: 22px; height: 22px; border-radius: 50%;
+  transform: translate(-50%,0) scale(0);
+  z-index: 10;
+  border: 3px solid var(--bg);
+  cursor: pointer;
+  transition: transform 0.5s cubic-bezier(0.34,1.56,0.64,1) 0.2s, box-shadow 0.3s;
+}
+.event.visible .event-node { transform: translate(-50%,0) scale(1); }
+.cause-ev .event-node { background: var(--cause); box-shadow: 0 0 16px var(--cause-glow); }
+.effect-ev .event-node { background: var(--effect); box-shadow: 0 0 16px var(--effect-glow); }
+.event-node:hover { transform: translate(-50%,0) scale(1.35) !important; }
+
+/* Ripple on node */
+.event-node::after {
+  content: '';
+  position: absolute; inset: -6px;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  opacity: 0;
+  animation: ripple 3s ease-out infinite;
+}
+.cause-ev .event-node::after { border-color: var(--cause); }
+.effect-ev .event-node::after { border-color: var(--effect); }
+@keyframes ripple {
+  0% { transform: scale(1); opacity: 0.5; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+/* Connector */
+.connector {
+  position: absolute; top: 38px; height: 1.5px;
+  width: calc(50% - 260px); z-index: 3;
+  opacity: 0;
+  transition: opacity 0.8s 0.4s;
+}
+.event.visible .connector { opacity: 1; }
+.event:nth-child(odd) .connector {
+  right: 50%; margin-right: 11px;
+  background: linear-gradient(to left, var(--spine), transparent);
+}
+.event:nth-child(even) .connector {
+  left: 50%; margin-left: 11px;
+  background: linear-gradient(to right, var(--spine), transparent);
+}
+
+/* ══ CARD ══ */
+.card {
+  width: calc(50% - 60px);
+  background: var(--bg-card);
+  border: 1px solid var(--card-border);
+  border-radius: 5px;
+  overflow: hidden; position: relative;
+  transition: border-color 0.4s, box-shadow 0.4s, transform 0.35s;
+  cursor: default;
+}
+.card:hover {
+  border-color: rgba(201,168,76,0.28);
+  box-shadow: 0 16px 60px rgba(0,0,0,0.5);
+  transform: translateY(-4px);
+}
+.event:nth-child(odd) .card { margin-right: auto; margin-left: 28px; }
+.event:nth-child(even) .card { margin-left: auto; margin-right: 28px; }
+.cause-ev .card { border-top: 3px solid var(--cause); }
+.effect-ev .card { border-top: 3px solid var(--effect); }
+
+/* ── CARD VISUAL ── */
+.card-visual {
+  width: 100%; height: 140px;
+  position: relative; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.card-visual::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to bottom, transparent 20%, var(--bg-card));
+  z-index: 2;
+}
+.card-visual .big-year {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 5.5rem; font-weight: 900;
+  opacity: 0.08; z-index: 1;
+  color: var(--parchment);
+  user-select: none;
+  transition: opacity 0.4s;
+}
+.card:hover .big-year { opacity: 0.14; }
+
+/* Animated icon overlay */
+.card-visual .icon-overlay {
+  position: absolute; z-index: 1;
+  font-size: 2.5rem; opacity: 0.06;
+  transition: opacity 0.4s, transform 0.4s;
+}
+.card:hover .icon-overlay { opacity: 0.12; transform: scale(1.1); }
+
+/* Visual themes */
+.vis-versailles { background: linear-gradient(135deg, #1a0808, #2a1212, #0e0606); }
+.vis-league { background: linear-gradient(135deg, #080e1a, #122640, #080c14); }
+.vis-hyper { background: linear-gradient(135deg, #1a1208, #2a2010, #0e0c06); }
+.vis-crash { background: linear-gradient(180deg, #1a0808, #0a0604); }
+.vis-crash::before { content:''; position:absolute; inset:0; background: repeating-linear-gradient(180deg, transparent 0, transparent 18px, rgba(212,64,48,0.06) 19px, transparent 20px); }
+.vis-hitler { background: linear-gradient(135deg, #0e0604, #1a0c08, #080402); }
+.vis-hitler::before { content:''; position:absolute; inset:0; background: radial-gradient(ellipse at 50% 0%, rgba(212,64,48,0.12), transparent 65%); }
+.vis-nuremberg { background: linear-gradient(135deg, #14080a, #1e0e18, #0c060a); }
+.vis-nuremberg::before { content:''; position:absolute; inset:0; background: repeating-linear-gradient(45deg, transparent 0, transparent 12px, rgba(212,64,48,0.03) 12px, rgba(212,64,48,0.03) 13px); }
+.vis-rhineland { background: linear-gradient(90deg, #0e0804, #1a1210, #0e0804); }
+.vis-rhineland::before { content:''; position:absolute; inset:0; background: repeating-linear-gradient(90deg, transparent 0, transparent 35px, rgba(201,168,76,0.04) 35px, rgba(201,168,76,0.04) 36px); }
+.vis-munich { background: linear-gradient(135deg, #0a0e1a, #142036, #080c14); }
+.vis-munich::before { content:''; position:absolute; inset:0; background: radial-gradient(circle at 30% 60%, rgba(52,152,219,0.1), transparent 50%), radial-gradient(circle at 70% 30%, rgba(212,64,48,0.06), transparent 50%); }
+.vis-poland { background: linear-gradient(180deg, #1c0606, #2e0a0a, #0c0404); }
+.vis-poland::before { content:''; position:absolute; inset:0; background: radial-gradient(ellipse at 50% 100%, rgba(255,100,0,0.15), transparent 55%), radial-gradient(ellipse at 20% 20%, rgba(255,80,0,0.04), transparent 40%); }
+.vis-end { background: linear-gradient(180deg, #080808, #0c0a06); }
+.vis-end::before { content:''; position:absolute; inset:0; background: radial-gradient(ellipse at 35% 80%, rgba(255,140,0,0.05), transparent 45%), radial-gradient(ellipse at 65% 80%, rgba(255,140,0,0.05), transparent 45%); }
+
+/* ── CARD BODY ── */
+.card-body { padding: 18px 22px; }
+
+.card-tag {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.5rem; letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 3px 8px; border-radius: 2px;
+  margin-bottom: 8px;
+}
+.cause-ev .card-tag { background: rgba(212,64,48,0.12); color: var(--cause); border: 1px solid rgba(212,64,48,0.2); }
+.effect-ev .card-tag { background: rgba(52,152,219,0.12); color: var(--effect); border: 1px solid rgba(52,152,219,0.2); }
+
+.card-year {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.6rem; font-weight: 900;
+  display: block;
+}
+.cause-ev .card-year { color: var(--cause); }
+.effect-ev .card-year { color: var(--effect); }
+
+.card-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.15rem; font-weight: 700;
+  color: var(--parchment);
+  margin: 2px 0 12px; line-height: 1.35;
+}
+.card-text {
+  font-size: 0.93rem; font-weight: 300;
+  line-height: 1.75; color: var(--text);
+  margin-bottom: 8px;
+}
+
+/* Expandable detail */
+.card-detail {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.6s cubic-bezier(0.22,1,0.36,1), opacity 0.4s;
+  opacity: 0;
+}
+.card-detail.open { max-height: 600px; opacity: 1; }
+.card-detail-inner {
+  padding-top: 10px;
+  border-top: 1px dashed rgba(201,168,76,0.1);
+  margin-top: 8px;
+}
+
+.expand-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem; letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  background: none; border: 1px solid rgba(201,168,76,0.15);
+  padding: 5px 12px; border-radius: 2px;
+  cursor: pointer; margin-top: 10px;
+  transition: all 0.3s;
+}
+.expand-btn:hover {
+  color: var(--gold); border-color: var(--gold-dim);
+  background: rgba(201,168,76,0.06);
+}
+.expand-btn .chevron {
+  transition: transform 0.3s;
+  font-size: 0.7rem;
+}
+.expand-btn.expanded .chevron { transform: rotate(180deg); }
+
+/* Stat callout */
+.stat-callout {
+  display: flex; align-items: center; gap: 14px;
+  background: rgba(201,168,76,0.04);
+  border-left: 3px solid var(--gold-dim);
+  padding: 10px 16px; margin: 12px 0 6px;
+  border-radius: 0 4px 4px 0;
+  transition: border-color 0.3s, background 0.3s;
+}
+.stat-callout:hover {
+  border-color: var(--gold);
+  background: rgba(201,168,76,0.07);
+}
+.stat-num {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.5rem; font-weight: 900;
+  color: var(--gold); white-space: nowrap;
+}
+.stat-label {
+  font-size: 0.73rem; font-weight: 300;
+  color: var(--text-dim); line-height: 1.45;
+}
+
+/* Why callout */
+.card-why {
+  font-style: italic; font-size: 0.85rem;
+  color: var(--gold); line-height: 1.65;
+  padding: 12px 14px;
+  margin-top: 12px;
+  background: rgba(201,168,76,0.03);
+  border-left: 3px solid var(--gold-dim);
+  border-radius: 0 4px 4px 0;
+}
+.card-why::before { content: '⚡ '; }
+
+/* Link chain */
+.card-link {
+  display: flex; align-items: center; gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.56rem; letter-spacing: 0.04em;
+  margin-top: 12px; padding: 10px 14px;
+  border: 1px dashed rgba(201,168,76,0.1);
+  border-radius: 3px; cursor: pointer;
+  transition: all 0.3s;
+  text-decoration: none;
+}
+.card-link:hover {
+  background: rgba(201,168,76,0.05);
+  border-color: rgba(201,168,76,0.25);
+}
+.card-link.link-cause { color: var(--cause); }
+.card-link.link-effect { color: var(--effect); }
+.card-link.link-chain { color: var(--gold); }
+.link-icon {
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+
+/* ══ INTERLUDES ══ */
+.interlude {
+  text-align: center;
+  padding: 60px 30px;
+  max-width: 700px;
+  margin: 30px auto 50px;
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 1s ease, transform 1s ease;
+  position: relative;
+}
+.interlude.visible { opacity: 1; transform: translateY(0); }
+
+.interlude .quote-mark {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 5rem; color: var(--gold-dim);
+  opacity: 0.25; line-height: 1;
+  margin-bottom: -20px;
+  display: block;
+}
+.interlude blockquote {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.1rem, 2.8vw, 1.65rem);
+  font-style: italic; font-weight: 400;
+  color: var(--parchment); line-height: 1.65;
+  padding: 0 16px;
+}
+/* Typewriter cursor for active quote */
+.interlude blockquote .typewriter-cursor {
+  display: inline-block;
+  width: 2px; height: 1em;
+  background: var(--gold);
+  margin-left: 2px;
+  animation: blink 0.8s step-end infinite;
+  vertical-align: text-bottom;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+.interlude cite {
+  display: block; margin-top: 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.52rem; letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold-dim); font-style: normal;
+}
+.interlude .line {
+  width: 50px; height: 1px;
+  background: var(--gold-dim);
+  margin: 20px auto 0;
+}
+
+/* ══ COUNTER ANIMATION ══ */
+.count-up { transition: color 0.3s; }
+
+/* ══════════════════════ MODAL ══════════════════════ */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(6,5,3,0.85);
+  backdrop-filter: blur(8px);
+  z-index: 8000;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.4s;
+  display: flex; align-items: center; justify-content: center;
+}
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+.modal {
+  background: var(--bg-card);
+  border: 1px solid rgba(201,168,76,0.15);
+  border-radius: 6px;
+  max-width: 620px; width: 90%;
+  max-height: 80vh; overflow-y: auto;
+  padding: 32px;
+  transform: translateY(30px) scale(0.95);
+  transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);
+  position: relative;
+}
+.modal-overlay.open .modal { transform: translateY(0) scale(1); }
+.modal-close {
+  position: absolute; top: 14px; right: 14px;
+  background: none; border: 1px solid rgba(201,168,76,0.15);
+  color: var(--text-dim);
+  width: 32px; height: 32px;
+  border-radius: 50%; cursor: pointer;
+  font-size: 1rem;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.3s;
+}
+.modal-close:hover {
+  border-color: var(--gold); color: var(--parchment);
+  background: rgba(201,168,76,0.08);
+}
+.modal h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.5rem; font-weight: 900;
+  color: var(--parchment);
+  margin-bottom: 6px;
+}
+.modal .modal-year {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.1rem; font-weight: 700;
+  margin-bottom: 16px;
+}
+.modal p {
+  font-size: 0.95rem; font-weight: 300;
+  line-height: 1.8; color: var(--text);
+  margin-bottom: 10px;
+}
+.modal .modal-section-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem; letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  margin: 18px 0 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(201,168,76,0.1);
+}
+.modal .key-figures {
+  display: flex; gap: 12px; flex-wrap: wrap;
+  margin-top: 8px;
+}
+.modal .figure-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  padding: 4px 10px;
+  border: 1px solid rgba(201,168,76,0.12);
+  border-radius: 2px;
+  color: var(--text-dim);
+}
+
+/* ══ FOOTER ══ */
+footer {
+  text-align: center;
+  padding: 60px 20px 50px;
+  border-top: 1px solid rgba(201,168,76,0.06);
+  max-width: 600px; margin: 0 auto;
+}
+footer .end-mark {
+  font-size: 1.4rem; color: var(--gold-dim);
+  margin-bottom: 12px;
+}
+footer p {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.52rem; letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--text-dim); line-height: 2.4;
+}
+footer .credit {
+  margin-top: 16px;
+  font-style: italic;
+  font-family: 'Crimson Pro', serif;
+  font-size: 0.8rem; color: var(--text-dim);
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/* ══ KBD HINT ══ */
+.kbd-hint {
+  position: fixed; bottom: 16px; left: 50%;
+  transform: translateX(-50%);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.5rem; letter-spacing: 0.1em;
+  color: var(--text-dim);
+  background: rgba(12,10,7,0.9);
+  border: 1px solid rgba(201,168,76,0.08);
+  padding: 6px 14px; border-radius: 3px;
+  z-index: 600;
+  opacity: 0; transition: opacity 0.5s;
+  pointer-events: none;
+}
+.kbd-hint.show { opacity: 1; }
+.kbd-hint kbd {
+  display: inline-block;
+  background: rgba(201,168,76,0.08);
+  border: 1px solid rgba(201,168,76,0.15);
+  padding: 1px 6px; border-radius: 2px;
+  margin: 0 2px;
+  color: var(--gold-dim);
+}
+
+/* ══ RESPONSIVE ══ */
+@media (max-width: 850px) {
+  .timeline::before { left: 22px; }
+  .spine-pulse { left: 22px; }
+  .event { flex-direction: column !important; padding-left: 52px; transform: translateY(40px) !important; }
+  .event.visible { transform: translateY(0) translateX(0) !important; }
+  .event-node { left: 22px !important; top: 12px; }
+  .card { width: 100% !important; margin: 0 !important; }
+  .connector { display: none; }
+  .side-nav { display: none; }
+  .controls { gap: 8px; }
+  .controls .sep { display: none; }
+  .kbd-hint { display: none; }
+  .hero h1 { font-size: clamp(2rem, 8vw, 3.5rem); }
+  .hero h1 .accent { font-size: clamp(1.7rem, 7vw, 3rem); }
+  .corner { display: none; }
+}
+</style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- ═══ SIDE NAV ═══ -->
+<nav class="side-nav" id="sideNav">
+  <a href="#ev-1919" data-tooltip="1919 · Versailles" class="cause-nav"></a>
+  <a href="#ev-1920" data-tooltip="1920 · League of Nations" class="effect-nav"></a>
+  <a href="#ev-1923" data-tooltip="1923 · Hyperinflation" class="cause-nav"></a>
+  <a href="#ev-1929" data-tooltip="1929 · Wall St Crash" class="cause-nav"></a>
+  <a href="#ev-1933" data-tooltip="1933 · Hitler Chancellor" class="effect-nav"></a>
+  <a href="#ev-1935" data-tooltip="1935 · Nuremberg Laws" class="effect-nav"></a>
+  <a href="#ev-1936" data-tooltip="1936 · Rhineland" class="cause-nav"></a>
+  <a href="#ev-1938" data-tooltip="1938 · Munich & Kristallnacht" class="effect-nav"></a>
+  <a href="#ev-1939" data-tooltip="1939 · Poland → WWII" class="cause-nav"></a>
+  <a href="#ev-1945" data-tooltip="1945 · War Ends" class="effect-nav"></a>
+</nav>
+
+<!-- ═══ KBD HINT ═══ -->
+<div class="kbd-hint" id="kbdHint">
+  Use <kbd>↑</kbd><kbd>↓</kbd> to navigate events · <kbd>Enter</kbd> to expand · <kbd>Esc</kbd> to close
+</div>
+
+<!-- ════════════════════ HERO ════════════════════ -->
+<section class="hero" id="hero">
+  <div class="corner corner--tl"></div>
+  <div class="corner corner--tr"></div>
+  <div class="corner corner--bl"></div>
+  <div class="corner corner--br"></div>
+  <p class="hero-eyebrow">Year 10 History · Interwar Period</p>
+  <h1>The Interwar Years<span class="accent">1919 – 1945</span></h1>
+  <p class="hero-sub">Twenty years of fragile peace, shattered economies, rising tyrants, and the road to the deadliest conflict in human history.</p>
+  <a href="#ev-1919" class="hero-cta">
+    Begin the Timeline <span class="arrow">↓</span>
+  </a>
+  <div class="scroll-line"></div>
+</section>
+
+<!-- ════════════════════ CONTROLS ════════════════════ -->
+<div class="controls" id="controls">
+  <button class="filter-btn active" data-filter="all">All Events</button>
+  <button class="filter-btn cause-btn" data-filter="cause">Causes</button>
+  <button class="filter-btn effect-btn" data-filter="effect">Effects</button>
+  <div class="sep"></div>
+  <span class="legend-item"><span class="legend-dot cause-d"></span> Cause</span>
+  <span class="legend-item"><span class="legend-dot effect-d"></span> Effect</span>
+  <span class="legend-item" style="color:var(--gold);">⚡ Significance</span>
+</div>
+
+<!-- ════════════════════ TIMELINE ════════════════════ -->
+<div class="timeline" id="timeline">
+  <div class="spine-pulse"></div>
+
+  <!-- ━━ 1919 VERSAILLES ━━ -->
+  <div class="event cause-ev" id="ev-1919" data-type="cause">
+    <div class="event-node" data-modal="versailles" title="Click for more detail"></div>
+    <div class="connector"></div>
+    <div class="card">
+      <div class="card-visual vis-versailles">
+        <span class="icon-overlay">📜</span>
+        <span class="big-year">1919</span>
+      </div>
+      <div class="card-body">
+        <span class="card-tag">Cause</span>
+        <span class="card-year">1919</span>
+        <h3 class="card-title">Treaty of Versailles</h3>
+        <p class="card-text">Germany was forced to accept sole war guilt under Article 231, pay £6.6 billion in reparations, surrender 13% of its territory, and cap its army at just 100,000 troops. The German delegation called it a <em>Diktat</em>.</p>
+        <div class="stat-callout">
+          <span class="stat-num">£<span class="count-up" data-target="6.6" data-suffix="B" data-decimals="1">0</span></span>
+          <span class="stat-label">in reparations demanded<br>(≈ £400 billion today)</span>
+        </div>
+        <button class="expand-btn" aria-expanded="false">More detail <span class="chevron">▾</span></button>
+        <div class="card-detail">
+          <div class="card-detail-inner">
+            <p class="card-text">The Rhineland was demilitarised. The Saar coalfields were placed under French control. Germany's colonies were distributed as League mandates. The German navy was reduced to 6 battleships. Conscription was abolished.</p>
+            <p class="card-text">German politicians who signed were branded "November Criminals" — a label the Nazis would weaponise for years to come.</p>
+          </div>
+        </div>
+        <div class="card-why">Created mass national humiliation and economic ruin — making extremist politics far more appealing to ordinary Germans.</div>
+        <a class="card-link link-chain" href="#ev-1923">
+          <span class="link-icon">→</span> LINK A · Directly fuels the 1923 crisis and Hitler's rise
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ━━ 1920 LEAGUE ━━ -->
+  <div class="event effect-ev" id="ev-1920" data-type="effect">
+    <div class="event-node" data-modal="league" title="Click for more detail"></div>
+    <div class="connector"></div>
+    <div class="card">
+      <div class="card-visual vis-league">
+        <span class="icon-overlay">🌐</span>
+        <span class="big-year">1920</span>
+      </div>
+      <div class="card-body">
+        <span class="card-tag">Effect</span>
+        <span class="card-year">1920</span>
+        <h3 class="card-title">League of Nations Founded</h3>
+        <p class="card-text">Woodrow Wilson's vision of collective security became reality — but was fatally undermined from day one. The USA refused to join. The League had no army, and resolutions required unanimous agreement.</p>
+        <button class="expand-btn" aria-expanded="false">More detail <span class="chevron">▾</span></button>
+        <div class="card-detail">
+          <div class="card-detail-inner">
+            <p class="card-text">Germany and the USSR were initially excluded. The League failed to stop Japan's invasion of Manchuria (1931) and Italy's invasion of Abyssinia (1935).</p>
+            <p class="card-text">Without American membership or military enforcement, it became, as critics said, "a debating society with no teeth."</p>
+          </div>
+        </div>
+        <div class="card-why">The League's structural weakness meant no credible mechanism existed to stop aggression — directly enabling the dictators of the 1930s.</div>
+        <a class="card-link link-effect" href="#ev-1938">
+          <span class="link-icon">→</span> Its failures foreshadow appeasement (1938)
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ INTERLUDE ═══ -->
+  <div class="interlude">
+    <span class="quote-mark">"</span>
+    <blockquote class="typewriter" data-text="This is not a peace. It is an armistice for twenty years."></blockquote>
+    <cite>Ferdinand Foch · Supreme Allied Commander · 1919</cite>
+    <div class="line"></div>
+  </div>
+
+  <!-- ━━ 1923 HYPERINFLATION ━━ -->
+  <div class="event cause-ev" id="ev-1923" data-type="cause">
+    <div class="event-node" data-modal="hyper" title="Click for more detail"></div>
+    <div class="connector"></div>
+    <div class="card">
+      <div class="card-visual vis-hyper">
+        <span class="icon-overlay">💰</span>
+        <span class="big-year">1923</span>
+      </div>
+      <div class="card-body">
+        <span class="card-tag">Cause</span>
+        <span class="card-year">1923</span>
+        <h3 class="card-title">Hyperinflation in Weimar Germany</h3>
+        <p class="card-text">Unable to meet reparation payments, Germany printed money at a catastrophic rate. By November, a loaf of bread cost 200 billion marks. Life savings became worthless overnight.</p>
+        <div class="stat-callout">
+          <span class="stat-num"><span class="count-up" data-target="200" data-suffix="B">0</span></span>
+          <span class="stat-label">marks for a single<br>loaf of bread</span>
+        </div>
+        <button class="expand-btn" aria-expanded="false">More detail <span class="chevron">▾</span></button>
+        <div class="card-detail">
+          <div class="card-detail-inner">
+            <p class="card-text">Workers were paid twice daily — rushing to spend before noon because prices doubled by evening. Children played with stacks of worthless banknotes. A wheelbarrow of money couldn't buy a newspaper.</p>
+            <p class="card-text">That same year, Adolf Hitler led the failed Beer Hall Putsch in Munich. Imprisoned, he wrote <em>Mein Kampf</em> — his ideological blueprint.</p>
+          </div>
+        </div>
+        <div class="card-why">Destroyed the German middle class's faith in democracy and created fertile ground for radical nationalist movements.</div>
+        <a class="card-link link-chain" href="#ev-1919">
+          <span class="link-icon">←</span> LINK A · Versailles reparations caused this crisis
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ━━ 1929 WALL STREET ━━ -->
+  <div class="event cause-ev" id="ev-1929" data-type="cause">
+    <div class="event-node" data-modal="crash" title="Click for more detail"></div>
+    <div class="connector"></div>
+    <div class="card">
+      <div class="card-visual vis-crash">
+        <span class="icon-overlay">📉</span>
+        <span class="big-year">1929</span>
+      </div>
+      <div class="card-body">
+        <span class="card-tag">Cause</span>
+        <span class="card-year">29 Oct 1929</span>
+        <h3 class="card-title">Wall Street Crash & Great Depression</h3>
+        <p class="card-text">On "Black Tuesday," the US stock market lost $14 billion in a single day. American banks recalled loans to Germany. By 1932, German unemployment hit 6 million.</p>
+        <div class="stat-callout">
+          <span class="stat-num"><span class="count-up" data-target="6" data-suffix="M">0</span></span>
+          <span class="stat-label">unemployed in Germany<br>by 1932 — 1 in 3 workers</span>
+        </div>
+        <button class="expand-btn" aria-expanded="false">More detail <span class="chevron">▾</span></button>
+        <div class="card-detail">
+          <div class="card-detail-inner">
+            <p class="card-text">Democratic parties had no answers. The Nazis offered scapegoats, national pride, and jobs. Their vote share surged from 2.6% (1928) to 37.3% (1932) — the largest party in the Reichstag.</p>
+            <p class="card-text">The Depression wasn't just a German story — it hit every industrial nation. But Germany's fragile democracy, already weakened by Versailles and hyperinflation, was uniquely vulnerable.</p>
+          </div>
+        </div>
+        <div class="card-why">The global economic collapse was the final catalyst — depression delivered voters to Hitler.</div>
+        <a class="card-link link-chain" href="#ev-1933">
+          <span class="link-icon">→</span> Depression → Nazi surge → Chancellor (1933)
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ INTERLUDE ═══ -->
+  <div class="interlude">
+    <span class="quote-mark">"</span>
+    <blockquote class="typewriter" data-text="Those who cannot remember the past are condemned to repeat it."></blockquote>
+    <cite>George Santayana</cite>
+    <div class="line"></div>
+  </div>
+
+  <!-- ━━ 1933 HITLER ━━ -->
+  <div class="event effect-ev" id="ev-1933" data-type="effect">
+    <div class="event-node" data-modal="hitler" title="Click for more detail"></div>
+    <div class="connector"></div>
+    <div class="card">
+      <div class="card-visual vis-hitler">
+        <span class="icon-overlay">⚠️</span>
+        <span class="big-year">1933</span>
+      </div>
+      <div class="card-body">
+        <span class="card-tag">Effect</span>
+        <span class="card-year">30 Jan 1933</span>
+        <h3 class="card-title">Hitler Becomes Chancellor</h3>
+        <p class="card-text">President Hindenburg appointed Adolf Hitler as Chancellor. Within weeks, the Reichstag Fire gave him the pretext to suspend civil liberties. By March, the Enabling Act granted dictatorial power.</p>
+        <button class="expand-btn" aria-expanded="false">More detail <span class="chevron">▾</span></button>
+        <div class="card-detail">
+          <div class="card-detail-inner">
+            <p class="card-text">Democracy was dead. Trade unions were banned. Opposition parties were dissolved. The Gestapo was established. Book burnings began in May.</p>
+            <p class="card-text">Germany withdrew from the League of Nations in October and began secret rearmament — directly violating the Treaty of Versailles.</p>
+          </div>
+        </div>
+        <div class="card-why">Nazi control meant aggressive expansionism was now official state policy — the direct path to continental war.</div>
+        <a class="card-link link-cause" href="#ev-1919">
+          <span class="link-icon">←</span> LINK A · Versailles humiliation + Depression made this possible
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ━━ 1935 NUREMBERG ━━ -->
+  <div class="event effect-ev" id="ev-1935" data-type="effect">
+    <div class="event-node" data-modal="nuremberg" title="Click for more detail"></div>
+    <div class="connector"></div>
+    <div class="card">
+      <div class="card-visual vis-nuremberg">
+        <span class="icon-overlay">⛓️</span>
+        <span class="big-year">1935</span>
+      </div>
+      <div class="card-body">
+        <span class="card-tag">Effect</span>
+        <span class="card-year">1935</span>
+        <h3 class="card-title">Nuremberg Laws & Rearmament</h3>
+        <p class="card-text">The Nuremberg Laws stripped German Jews of citizenship and banned mixed marriages — legalising persecution. Meanwhile, Hitler announced conscription and the Luftwaffe, violating Versailles.</p>
+        <button class="expand-btn" aria-expanded="false">More detail <span class="chevron">▾</span></button>
+        <div class="card-detail">
+          <div class="card-detail-inner">
+            <p class="card-text">Britain responded not with sanctions but with the Anglo-German Naval Agreement — effectively accepting German rearmament. France protested but took no action.</p>
+            <p class="card-text">Jews were progressively banned from professions, public spaces, and civic life. The path to genocide had begun.</p>
+          </div>
+        </div>
+        <div class="card-why">The international community's passive response taught Hitler that aggression would be tolerated.</div>
+        <a class="card-link link-chain" href="#ev-1938">
+          <span class="link-icon">→</span> LINK B · Unchecked rearmament leads to Anschluss (1938)
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ━━ 1936 RHINELAND ━━ -->
+  <div class="event cause-ev" id="ev-1936" data-type="cause">
+    <div class="event-node" data-modal="rhineland" title="Click for more detail"></div>
+    <div class="connector"></div>
+    <div class="card">
+      <div class="card-visual vis-rhineland">
+        <span class="icon-overlay">🪖</span>
+        <span class="big-year">1936</span>
+      </div>
+      <div class="card-body">
+        <span class="card-tag">Cause</span>
+        <span class="card-year">7 Mar 1936</span>
+        <h3 class="card-title">Remilitarisation of the Rhineland</h3>
+        <p class="card-text">Hitler sent 22,000 troops into the demilitarised Rhineland — his biggest gamble yet. He later admitted that if France had responded, Germany would have retreated. They didn't.</p>
+        <div class="stat-callout">
+          <span class="stat-num"><span class="count-up" data-target="22000" data-separator="true">0</span></span>
+          <span class="stat-label">German troops marched<br>into the Rhineland</span>
+        </div>
+        <button class="expand-btn" aria-expanded="false">More detail <span class="chevron">▾</span></button>
+        <div class="card-detail">
+          <div class="card-detail-inner">
+            <p class="card-text">That July, the Spanish Civil War erupted. Hitler and Mussolini sent troops and aircraft to support Franco's Nationalists — using Spain as a testing ground for Blitzkrieg tactics, including the bombing of Guernica.</p>
+            <p class="card-text">The Rome-Berlin Axis was formed in October. The stage was set for the next move.</p>
+          </div>
+        </div>
+        <div class="card-why">Each unchallenged gamble made the next one bigger. The pattern of bluff-and-fold was firmly established.</div>
+        <a class="card-link link-chain" href="#ev-1938">
+          <span class="link-icon">→</span> France's inaction makes Munich appeasement inevitable
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ INTERLUDE ═══ -->
+  <div class="interlude">
+    <span class="quote-mark">"</span>
+    <blockquote class="typewriter" data-text="If the French had marched into the Rhineland, we would have had to withdraw with our tails between our legs."></blockquote>
+    <cite>Adolf Hitler · Reflecting on March 1936</cite>
+    <div class="line"></div>
+  </div>
+
+  <!-- ━━ 1938 MUNICH ━━ -->
+  <div class="event effect-ev" id="ev-1938" data-type="effect">
+    <div class="event-node" data-modal="munich" title="Click for more detail"></div>
+    <div class="connector"></div>
+    <div class="card">
+      <div class="card-visual vis-munich">
+        <span class="icon-overlay">🤝</span>
+        <span class="big-year">1938</span>
+      </div>
+      <div class="card-body">
+        <span class="card-tag">Effect</span>
+        <span class="card-year">1938</span>
+        <h3 class="card-title">Anschluss, Munich & Kristallnacht</h3>
+        <p class="card-text">In March, Germany annexed Austria. In September, Chamberlain flew to Munich and ceded the Sudetenland, declaring "peace for our time."</p>
+        <div class="stat-callout">
+          <span class="stat-num"><span class="count-up" data-target="7500" data-suffix="+" data-separator="true">0</span></span>
+          <span class="stat-label">Jewish businesses destroyed<br>on Kristallnacht (9–10 Nov)</span>
+        </div>
+        <button class="expand-btn" aria-expanded="false">More detail <span class="chevron">▾</span></button>
+        <div class="card-detail">
+          <div class="card-detail-inner">
+            <p class="card-text">On 9–10 November, <em>Kristallnacht</em> — the Night of Broken Glass — saw Nazi mobs destroy Jewish businesses, burn 267 synagogues, kill at least 91 people, and send 30,000 Jewish men to concentration camps.</p>
+            <p class="card-text">In March 1939, Hitler occupied the rest of Czechoslovakia — proving Munich was worthless. Appeasement was dead.</p>
+          </div>
+        </div>
+        <div class="card-why">Appeasement at Munich told Hitler that treaty violations went unpunished. Kristallnacht revealed the regime's true nature — and still, no one intervened.</div>
+        <a class="card-link link-effect" href="#ev-1939">
+          <span class="link-icon">→</span> LINK B · Emboldened aggression leads to invasion of Poland
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ━━ 1939 POLAND ━━ -->
+  <div class="event cause-ev" id="ev-1939" data-type="cause">
+    <div class="event-node" data-modal="poland" title="Click for more detail"></div>
+    <div class="connector"></div>
+    <div class="card">
+      <div class="card-visual vis-poland">
+        <span class="icon-overlay">💥</span>
+        <span class="big-year">1939</span>
+      </div>
+      <div class="card-body">
+        <span class="card-tag">Cause</span>
+        <span class="card-year">1 Sep 1939</span>
+        <h3 class="card-title">Invasion of Poland → World War II</h3>
+        <p class="card-text">At 4:45 AM, German forces stormed into Poland — the first <em>Blitzkrieg</em>. The Luftwaffe destroyed the Polish Air Force within 48 hours. On 3 September, Britain and France declared war.</p>
+        <button class="expand-btn" aria-expanded="false">More detail <span class="chevron">▾</span></button>
+        <div class="card-detail">
+          <div class="card-detail-inner">
+            <p class="card-text">On 17 September, the Soviet Union invaded from the east, as agreed in the secret Molotov-Ribbentrop Pact (23 August). Poland fell in five weeks.</p>
+            <p class="card-text">The interwar period was over. The most destructive war in human history had begun.</p>
+          </div>
+        </div>
+        <div class="card-why">Every act of appeasement convinced Hitler that Poland would also be conceded — it wasn't. Twenty years of fragile peace collapsed in a single dawn.</div>
+        <a class="card-link link-cause" href="#ev-1919">
+          <span class="link-icon">←</span> Every event on this timeline converges here
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ INTERLUDE ═══ -->
+  <div class="interlude">
+    <span class="quote-mark">"</span>
+    <blockquote class="typewriter" data-text="I have nothing to offer but blood, toil, tears and sweat."></blockquote>
+    <cite>Winston Churchill · 13 May 1940</cite>
+    <div class="line"></div>
+  </div>
+
+  <!-- ━━ 1945 END ━━ -->
+  <div class="event effect-ev" id="ev-1945" data-type="effect">
+    <div class="event-node" data-modal="end" title="Click for more detail"></div>
+    <div class="connector"></div>
+    <div class="card">
+      <div class="card-visual vis-end">
+        <span class="icon-overlay">🕊️</span>
+        <span class="big-year">1945</span>
+      </div>
+      <div class="card-body">
+        <span class="card-tag">Effect</span>
+        <span class="card-year">1945</span>
+        <h3 class="card-title">End of World War II</h3>
+        <p class="card-text">Six years of total war killed an estimated 70–85 million people — roughly 3% of the world's population. The Holocaust murdered 6 million Jews and millions of others.</p>
+        <div class="stat-callout">
+          <span class="stat-num">~<span class="count-up" data-target="75" data-suffix="M">0</span></span>
+          <span class="stat-label">lives lost — the deadliest<br>conflict in human history</span>
+        </div>
+        <button class="expand-btn" aria-expanded="false">More detail <span class="chevron">▾</span></button>
+        <div class="card-detail">
+          <div class="card-detail-inner">
+            <p class="card-text">Germany surrendered on 8 May (V-E Day). Japan surrendered on 15 August after the atomic bombings of Hiroshima and Nagasaki — killing over 200,000 people and inaugurating the nuclear age.</p>
+            <p class="card-text">The world that emerged was split between two superpowers. But from the ruins came the United Nations (1945), NATO (1949), the Universal Declaration of Human Rights (1948), and eventually the European Union — institutions built specifically to prevent the failures of the interwar years from ever repeating.</p>
+          </div>
+        </div>
+        <div class="card-why">The failures of Versailles, the League, appeasement, and interwar democracies were paid for in blood on an unimaginable scale.</div>
+        <a class="card-link link-chain" href="#ev-1919">
+          <span class="link-icon">⟳</span> From these ashes: the UN, NATO, and the EU were built to ensure this never happened again
+        </a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ════════════════════ MODAL ════════════════════ -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modal">
+    <button class="modal-close" id="modalClose">×</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<!-- ════════════════════ FOOTER ════════════════════ -->
+<footer>
+  <p class="end-mark">✦</p>
+  <p>The Interwar Years · 1919 – 1945</p>
+  <p>Year 10 History Timeline</p>
+  <p class="credit">Built with care. Remember the past.</p>
+</footer>
+
+<!-- ═══════════════════ SCRIPTS ═══════════════════ -->
+<script>
+// ═══════ PARTICLES ═══════
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+let particles = [];
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+class Particle {
+  constructor() { this.reset(); }
+  reset() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.size = Math.random() * 1.5 + 0.3;
+    this.speedY = -(Math.random() * 0.15 + 0.03);
+    this.speedX = (Math.random() - 0.5) * 0.08;
+    this.opacity = Math.random() * 0.3 + 0.05;
+    this.fadeSpeed = Math.random() * 0.002 + 0.001;
+    this.life = 0;
+    this.maxLife = Math.random() * 400 + 200;
+  }
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    this.life++;
+    const lifeRatio = this.life / this.maxLife;
+    this.currentOpacity = this.opacity * Math.sin(lifeRatio * Math.PI);
+    if (this.life >= this.maxLife) this.reset();
+  }
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(201,168,76,${this.currentOpacity})`;
+    ctx.fill();
+  }
+}
+
+for (let i = 0; i < 60; i++) {
+  const p = new Particle();
+  p.life = Math.random() * p.maxLife;
+  particles.push(p);
+}
+
+function animateParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => { p.update(); p.draw(); });
+  requestAnimationFrame(animateParticles);
+}
+animateParticles();
+
+// ═══════ SCROLL OBSERVERS ═══════
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('visible');
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+
+document.querySelectorAll('.event, .interlude, .year-marker').forEach(el => revealObs.observe(el));
+
+// ═══════ PROGRESS BAR ═══════
+window.addEventListener('scroll', () => {
+  const p = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+  document.getElementById('progressBar').style.width = p + '%';
+}, { passive: true });
+
+// ═══════ HERO PARALLAX ═══════
+const hero = document.querySelector('.hero');
+window.addEventListener('scroll', () => {
+  const s = window.scrollY;
+  if (s < window.innerHeight * 1.2) {
+    hero.style.opacity = 1 - (s / (window.innerHeight * 0.65));
+    hero.style.transform = `translateY(${s * 0.4}px)`;
+  }
+}, { passive: true });
+
+// ═══════ SIDE NAV ═══════
+const sideNav = document.getElementById('sideNav');
+const navLinks = sideNav.querySelectorAll('a');
+const eventSections = document.querySelectorAll('.event[id]');
+
+window.addEventListener('scroll', () => {
+  sideNav.classList.toggle('show', window.scrollY > window.innerHeight * 0.8);
+
+  let current = '';
+  eventSections.forEach(sec => {
+    if (window.scrollY >= sec.offsetTop - 300) current = sec.id;
+  });
+  navLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+}, { passive: true });
+
+// ═══════ FILTER BUTTONS ═══════
+const filterBtns = document.querySelectorAll('.filter-btn');
+const allEvents = document.querySelectorAll('.event[data-type]');
+
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+
+    allEvents.forEach(ev => {
+      if (filter === 'all' || ev.dataset.type === filter) {
+        ev.classList.remove('hidden-filter');
+      } else {
+        ev.classList.add('hidden-filter');
+      }
+    });
+  });
+});
+
+// ═══════ EXPAND BUTTONS ═══════
+document.querySelectorAll('.expand-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const detail = btn.nextElementSibling;
+    const isOpen = detail.classList.contains('open');
+    detail.classList.toggle('open');
+    btn.classList.toggle('expanded');
+    btn.setAttribute('aria-expanded', !isOpen);
+    btn.innerHTML = isOpen
+      ? 'More detail <span class="chevron">▾</span>'
+      : 'Less detail <span class="chevron">▾</span>';
+  });
+});
+
+// ═══════ ANIMATED COUNTERS ═══════
+const counterObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting && !e.target.dataset.counted) {
+      e.target.dataset.counted = 'true';
+      animateCounter(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('.count-up').forEach(el => counterObs.observe(el));
+
+function animateCounter(el) {
+  const target = parseFloat(el.dataset.target);
+  const suffix = el.dataset.suffix || '';
+  const decimals = parseInt(el.dataset.decimals) || 0;
+  const useSep = el.dataset.separator === 'true';
+  const duration = 1800;
+  const start = performance.now();
+
+  function step(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    let current = target * eased;
+
+    if (decimals > 0) {
+      el.textContent = current.toFixed(decimals) + suffix;
+    } else {
+      let num = Math.floor(current);
+      if (useSep) num = num.toLocaleString();
+      el.textContent = num + suffix;
+    }
+    if (progress < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+// ═══════ TYPEWRITER QUOTES ═══════
+const typeObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting && !e.target.dataset.typed) {
+      e.target.dataset.typed = 'true';
+      typewrite(e.target);
+    }
+  });
+}, { threshold: 0.6 });
+
+document.querySelectorAll('.typewriter').forEach(el => typeObs.observe(el));
+
+function typewrite(el) {
+  const text = el.dataset.text;
+  el.innerHTML = '<span class="typewriter-cursor"></span>';
+  let i = 0;
+  const speed = 32;
+  function type() {
+    if (i < text.length) {
+      el.innerHTML = text.slice(0, i + 1) + '<span class="typewriter-cursor"></span>';
+      i++;
+      setTimeout(type, speed + Math.random() * 20);
+    } else {
+      setTimeout(() => {
+        el.innerHTML = text;
+      }, 2000);
+    }
+  }
+  setTimeout(type, 300);
+}
+
+// ═══════ MODAL SYSTEM ═══════
+const modalData = {
+  versailles: {
+    year: '1919', color: 'var(--cause)',
+    title: 'Treaty of Versailles — Deep Dive',
+    sections: [
+      { heading: 'Key Terms', text: 'Article 231 (War Guilt) · £6.6B reparations · Army capped at 100,000 · No air force · 6 battleships max · Rhineland demilitarised · Alsace-Lorraine to France · Saar coalfields to France for 15 years · All colonies surrendered · Union with Austria forbidden (Anschluss).' },
+      { heading: 'Key Figures', figures: ['Georges Clemenceau', 'Woodrow Wilson', 'David Lloyd George', 'Friedrich Ebert'] },
+      { heading: 'Why It Matters', text: 'The treaty was designed to prevent Germany from ever waging war again — but it was harsh enough to fuel resentment without being strict enough to actually prevent rearmament. This contradiction is the root cause of nearly everything on this timeline.' }
+    ]
+  },
+  league: {
+    year: '1920', color: 'var(--effect)',
+    title: 'League of Nations — Deep Dive',
+    sections: [
+      { heading: 'Structure', text: 'Assembly (all members) · Council (permanent + elected) · Secretariat · Permanent Court of International Justice · International Labour Organisation. Decisions required unanimous agreement.' },
+      { heading: 'Critical Failures', text: 'USA never joined · Failed to stop Japan in Manchuria (1931) · Failed to stop Italy in Abyssinia (1935) · No military enforcement · Germany, Japan, and Italy all withdrew in the 1930s.' },
+      { heading: 'Key Figures', figures: ['Woodrow Wilson', 'Lord Cecil', 'Aristide Briand'] }
+    ]
+  },
+  hyper: {
+    year: '1923', color: 'var(--cause)',
+    title: 'Hyperinflation Crisis — Deep Dive',
+    sections: [
+      { heading: 'The Numbers', text: 'Jan 1921: 1 USD = 75 marks · Jan 1923: 1 USD = 17,972 marks · Nov 1923: 1 USD = 4.2 TRILLION marks. A loaf of bread went from 250 marks (Jan) to 200 billion marks (Nov).' },
+      { heading: 'The Trigger', text: 'When Germany defaulted on reparation payments, France occupied the Ruhr industrial region. German workers went on strike. The government printed money to pay them — and the spiral began.' },
+      { heading: 'Key Figures', figures: ['Gustav Stresemann', 'Adolf Hitler', 'Hjalmar Schacht'] }
+    ]
+  },
+  crash: {
+    year: '1929', color: 'var(--cause)',
+    title: 'Wall Street Crash — Deep Dive',
+    sections: [
+      { heading: 'The Scale', text: '$14 billion lost on Black Tuesday alone. The Dow Jones fell 89% from peak (1929) to trough (1932). US industrial production halved. Global trade fell by 65%.' },
+      { heading: 'Germany\'s Connection', text: 'Germany\'s recovery in the "Golden Twenties" (1924–29) was built on American loans (Dawes Plan). When Wall Street collapsed, those loans were recalled. The German economy imploded almost overnight.' },
+      { heading: 'Key Figures', figures: ['Herbert Hoover', 'Heinrich Brüning', 'Franklin D. Roosevelt'] }
+    ]
+  },
+  hitler: {
+    year: '1933', color: 'var(--effect)',
+    title: 'Hitler\'s Rise to Power — Deep Dive',
+    sections: [
+      { heading: 'Timeline', text: '30 Jan: Appointed Chancellor · 27 Feb: Reichstag Fire · 28 Feb: Emergency Decree suspends civil liberties · 5 Mar: Election (43.9% Nazi) · 23 Mar: Enabling Act passes · 14 Jul: All parties banned except NSDAP · Oct: Germany leaves League of Nations.' },
+      { heading: 'How Democracy Died', text: 'Hitler used legal mechanisms to destroy legality itself. The Enabling Act allowed him to pass laws without the Reichstag. Conservative politicians who thought they could "control" him were sidelined within months.' },
+      { heading: 'Key Figures', figures: ['Adolf Hitler', 'Paul von Hindenburg', 'Hermann Göring', 'Joseph Goebbels'] }
+    ]
+  },
+  nuremberg: {
+    year: '1935', color: 'var(--effect)',
+    title: 'Nuremberg Laws — Deep Dive',
+    sections: [
+      { heading: 'The Laws', text: 'Reich Citizenship Law: Only those of "German blood" could be citizens. Law for the Protection of German Blood: Banned marriage and relations between Jews and non-Jews. Supplementary decrees defined who was "Jewish" based on grandparents.' },
+      { heading: 'Rearmament', text: 'Hitler announced the Wehrmacht (conscript army), Luftwaffe (air force), and violated the 100,000 troop limit. The Anglo-German Naval Agreement allowed Germany to build up to 35% of British naval tonnage.' },
+      { heading: 'Key Figures', figures: ['Adolf Hitler', 'Hermann Göring', 'Wilhelm Frick'] }
+    ]
+  },
+  rhineland: {
+    year: '1936', color: 'var(--cause)',
+    title: 'Rhineland Remilitarisation — Deep Dive',
+    sections: [
+      { heading: 'The Gamble', text: 'Hitler ordered 22,000 troops plus 14,000 police into the Rhineland on 7 March. German generals were terrified — they had orders to retreat if France responded. Hitler overruled them.' },
+      { heading: 'Why France Didn\'t Act', text: 'France was in political crisis (election season). Britain urged restraint, arguing Hitler was "only marching into his own backyard." The French military overestimated German strength.' },
+      { heading: 'Spanish Civil War', text: 'July 1936: Franco\'s Nationalists revolt. Germany sends the Condor Legion. Italy sends 75,000 troops. The bombing of Guernica (April 1937) showed what modern air warfare looked like.' },
+      { heading: 'Key Figures', figures: ['Adolf Hitler', 'Francisco Franco', 'Benito Mussolini', 'Anthony Eden'] }
+    ]
+  },
+  munich: {
+    year: '1938', color: 'var(--effect)',
+    title: 'Munich & Kristallnacht — Deep Dive',
+    sections: [
+      { heading: 'Anschluss (March)', text: 'German troops marched into Austria on 12 March. A rigged plebiscite showed 99.7% approval. Austria ceased to exist as an independent state. The Treaty of Versailles had explicitly forbidden this.' },
+      { heading: 'Munich Agreement (September)', text: 'Chamberlain, Daladier, Mussolini, and Hitler agreed to transfer the Sudetenland to Germany. Czechoslovakia was not invited to the meeting that dismembered it.' },
+      { heading: 'Kristallnacht (November)', text: '9–10 Nov: 7,500+ businesses destroyed · 267 synagogues burned · 91+ killed · 30,000 sent to camps. The pogrom was coordinated by the SA and SS. Jewish communities were fined 1 billion Reichsmarks for the damage done TO them.' },
+      { heading: 'Key Figures', figures: ['Neville Chamberlain', 'Adolf Hitler', 'Édouard Daladier', 'Benito Mussolini'] }
+    ]
+  },
+  poland: {
+    year: '1939', color: 'var(--cause)',
+    title: 'Invasion of Poland — Deep Dive',
+    sections: [
+      { heading: 'Molotov-Ribbentrop Pact', text: 'On 23 August, Nazi Germany and the Soviet Union signed a non-aggression pact. A secret protocol divided Eastern Europe into "spheres of influence" — Poland would be split between them.' },
+      { heading: 'The Invasion', text: '1 Sep, 4:45 AM: Battleship Schleswig-Holstein opens fire on Westerplatte. 1.5 million German troops cross the border. The Luftwaffe destroys the Polish Air Force in 48 hours. Warsaw falls on 27 September.' },
+      { heading: 'Key Figures', figures: ['Adolf Hitler', 'Vyacheslav Molotov', 'Joachim von Ribbentrop', 'Neville Chamberlain'] }
+    ]
+  },
+  end: {
+    year: '1945', color: 'var(--effect)',
+    title: 'End of World War II — Deep Dive',
+    sections: [
+      { heading: 'The Human Cost', text: '70–85 million dead · 6 million Jews murdered in the Holocaust · 27 million Soviet citizens killed · 7.5 million Chinese civilians killed · 5.3 million German military dead · Cities across Europe and Asia in ruins.' },
+      { heading: 'The Endings', text: '8 May (V-E Day): Germany surrenders unconditionally · 6 Aug: Hiroshima · 9 Aug: Nagasaki · 15 Aug (V-J Day): Japan surrenders · 2 Sep: Formal surrender aboard USS Missouri.' },
+      { heading: 'What Came Next', text: 'United Nations (1945) · Nuremberg Trials (1945–46) · Universal Declaration of Human Rights (1948) · NATO (1949) · European Coal and Steel Community (1951, predecessor to EU) · These institutions were built specifically to prevent the mistakes of the interwar period.' },
+      { heading: 'Key Figures', figures: ['Winston Churchill', 'Franklin D. Roosevelt', 'Joseph Stalin', 'Harry Truman'] }
+    ]
+  }
+};
+
+const overlay = document.getElementById('modalOverlay');
+const modal = document.getElementById('modal');
+const modalContent = document.getElementById('modalContent');
+
+document.querySelectorAll('.event-node[data-modal]').forEach(node => {
+  node.addEventListener('click', () => {
+    const key = node.dataset.modal;
+    const data = modalData[key];
+    if (!data) return;
+
+    let html = `<div class="modal-year" style="color:${data.color}">${data.year}</div>`;
+    html += `<h2>${data.title}</h2>`;
+    data.sections.forEach(s => {
+      html += `<div class="modal-section-title">${s.heading}</div>`;
+      if (s.text) html += `<p>${s.text}</p>`;
+      if (s.figures) {
+        html += '<div class="key-figures">';
+        s.figures.forEach(f => html += `<span class="figure-tag">${f}</span>`);
+        html += '</div>';
+      }
+    });
+    modalContent.innerHTML = html;
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  });
+});
+
+document.getElementById('modalClose').addEventListener('click', closeModal);
+overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+function closeModal() {
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ═══════ KEYBOARD NAVIGATION ═══════
+const kbdHint = document.getElementById('kbdHint');
+let kbdTimer;
+document.addEventListener('keydown', (e) => {
+  // Show hint briefly
+  kbdHint.classList.add('show');
+  clearTimeout(kbdTimer);
+  kbdTimer = setTimeout(() => kbdHint.classList.remove('show'), 3000);
+
+  const visibleEvents = [...document.querySelectorAll('.event[id]:not(.hidden-filter)')];
+  if (!visibleEvents.length) return;
+
+  if (e.key === 'Escape') {
+    closeModal();
+    return;
+  }
+
+  if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+    e.preventDefault();
+    const scrollY = window.scrollY + 200;
+    let currentIdx = -1;
+    visibleEvents.forEach((ev, i) => {
+      if (ev.offsetTop <= scrollY) currentIdx = i;
+    });
+
+    let nextIdx;
+    if (e.key === 'ArrowDown') {
+      nextIdx = Math.min(currentIdx + 1, visibleEvents.length - 1);
+    } else {
+      nextIdx = Math.max(currentIdx - 1, 0);
+    }
+    visibleEvents[nextIdx].scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  if (e.key === 'Enter') {
+    const scrollY = window.scrollY + 300;
+    let current = visibleEvents[0];
+    visibleEvents.forEach(ev => {
+      if (ev.offsetTop <= scrollY) current = ev;
+    });
+    const node = current.querySelector('.event-node[data-modal]');
+    if (node) node.click();
+  }
+});
+
+// Show kbd hint on first scroll
+let firstScroll = true;
+window.addEventListener('scroll', () => {
+  if (firstScroll && window.scrollY > 200) {
+    firstScroll = false;
+    kbdHint.classList.add('show');
+    setTimeout(() => kbdHint.classList.remove('show'), 4000);
+  }
+}, { passive: true });
+
+// ═══════ SMOOTH LINK SCROLLING ═══════
+function smoothScrollTo(target, duration = 900) {
+  const targetY = target.getBoundingClientRect().top + window.scrollY - (window.innerHeight / 2) + (target.offsetHeight / 2);
+  const startY = window.scrollY;
+  const diff = targetY - startY;
+  let start = null;
+
+  function step(timestamp) {
+    if (!start) start = timestamp;
+    const progress = Math.min((timestamp - start) / duration, 1);
+    const ease = progress < 0.5
+      ? 4 * progress * progress * progress
+      : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+    window.scrollTo(0, startY + diff * ease);
+    if (progress < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+document.querySelectorAll('.card-link[href^="#"], .side-nav a[href^="#"]').forEach(a => {
+  a.addEventListener('click', (e) => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      // Ensure it's visible first if filtered
+      target.classList.add('visible');
+      smoothScrollTo(target, 1000);
+      // Flash the target card after arrival
+      setTimeout(() => {
+        const card = target.querySelector('.card');
+        if (card) {
+          card.style.transition = 'box-shadow 0.3s ease';
+          card.style.boxShadow = '0 0 50px rgba(201,168,76,0.4), inset 0 0 0 1px rgba(201,168,76,0.2)';
+          setTimeout(() => {
+            card.style.transition = 'box-shadow 1.5s ease';
+            card.style.boxShadow = '';
+          }, 1200);
+        }
+      }, 900);
+    }
+  });
+});
+</script>
+
+</body>
+</html>
